@@ -4,10 +4,15 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+var unless = require('express-unless');
+var passport = require('passport');
+var Strategy = require('passport-json').Strategy;
 
 var index = require('./routes/index');
 var users = require('./routes/users');
 var books = require('./routes/books');
+
+var Users = require('./models/Users');
 
 var app = express();
 
@@ -17,11 +22,52 @@ app.set('view engine', 'ejs');
 
 // uncomment after placing your favicon in /public
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
+
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+
+passport.use(new Strategy(
+  function(username, password, cb) {
+    Users.find({username: username}, function(err, user) {
+      if (err) { return cb(err); }
+      user = user[0];
+      if (!user ) { return cb(null, false); }
+      if (user.password != password) { return cb(null, false); }
+      return cb(null, user);
+    });
+  }));
+
+  passport.serializeUser(function(user, cb) {
+    cb(null, user._id);
+  });
+
+  passport.deserializeUser(function(id, cb) {
+    Users.find({_id: id}, function (err, user) {
+      if (err) { return cb(err); }
+      cb(null, user);
+    });
+  });
+
+app.use(require('express-session')({ secret: 'SUPERPASS', resave: true, saveUninitialized: true }));
+app.use(passport.initialize());
+app.use(passport.session());
+
+app.post('/login',
+  passport.authenticate('json'),
+  function(req, res) {
+    res.json({msg: 'LOGGED'});
+  });
+
+app.get('/logout',
+  function(req, res){
+    req.logout();
+    res.json({msg: 'LOGGED OUT'});
+  });
+
+app.all('*', require('connect-ensure-login').ensureLoggedIn());
 
 app.use('/', index);
 app.use('/users', users);

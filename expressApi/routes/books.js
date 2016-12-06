@@ -3,7 +3,6 @@ var router = express.Router();
 var Books = require('../models/Books.js');
 
 router.get('/', function(req, res, next) {
-  console.log('BOOKS GET');
   Books.find(function(err, result) {
     if(err) {
       return next(err);
@@ -13,7 +12,6 @@ router.get('/', function(req, res, next) {
 });
 
 router.get('/:id', function(req, res, next) {
-  console.log('BOOKS GET SPECIFIC :', req);
   Books.find(function(err, result) {
     if(err) {
       return next(err);
@@ -23,7 +21,6 @@ router.get('/:id', function(req, res, next) {
 });
 
 router.post('/', function(req, res, next) {
-  console.log('BOOKS POST');
   Books.create(req.body, function (err, result) {
     if(err) {
       return next(err);
@@ -33,7 +30,6 @@ router.post('/', function(req, res, next) {
 });
 
 router.put('/', function(req, res, next) {
-  console.log('BOOKS PUT');
   var id = req.body._id;
   delete req.body._id;
   Books.update({"_id": id}, req.body, function (err, result) {
@@ -45,7 +41,6 @@ router.put('/', function(req, res, next) {
 });
 
 router.delete('/', function(req, res, next) {
-  console.log('BOOKS DELETE : ', req.body);
   Books.remove({"_id": req.body._id}, function (err, result) {
     if(err) {
       return next(err);
