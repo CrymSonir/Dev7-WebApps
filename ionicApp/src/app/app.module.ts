@@ -1,5 +1,8 @@
 import { NgModule, ErrorHandler } from '@angular/core';
 import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
+import { Storage } from '@ionic/storage';
+import { ApiService } from '../providers/apiService';
+import { AuthService } from '../providers/authService';
 import { MyApp } from './app.component';
 import { Accueil } from '../pages/accueil/accueil';
 import { Login } from '../pages/login/login';
@@ -25,6 +28,6 @@ import { Library } from '../pages/library/library';
     ScanBook,
     Library
   ],
-  providers: [{provide: ErrorHandler, useClass: IonicErrorHandler}]
+  providers: [{provide: [ErrorHandler, ApiService, Storage, AuthService], useClass: IonicErrorHandler}]
 })
 export class AppModule {}

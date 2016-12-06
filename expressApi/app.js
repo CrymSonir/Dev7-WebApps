@@ -6,6 +6,7 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var unless = require('express-unless');
 var cors = require('cors');
+var jwt = require('jsonwebtoken');
 var passport = require('passport');
 var Strategy = require('passport-json').Strategy;
 
@@ -59,7 +60,16 @@ app.use(passport.session());
 app.post('/login',
   passport.authenticate('json'),
   function(req, res) {
-    res.json({msg: 'LOGGED'});
+    var token = jwt.sign({
+      exp: Math.floor(Date.now() / 1000) + (60 * 60),
+      data: req.body
+    }, req.body.password);
+    var result = {
+      msg: 'LOGGED',
+      token: token
+    };
+    console.log('REQUEST : ', result);
+    res.json(result);
   });
 
 app.get('/logout',
