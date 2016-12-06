@@ -4,13 +4,15 @@ import { MyApp } from './app.component';
 import { Accueil } from '../pages/accueil/accueil';
 import { Login } from '../pages/login/login';
 import { ScanBook } from '../pages/scanBook/scanBook';
+import { Library } from '../pages/library/library';
 
 @NgModule({
   declarations: [
     MyApp,
     Accueil,
     Login,
-    ScanBook
+    ScanBook,
+    Library
   ],
   imports: [
     IonicModule.forRoot(MyApp)
@@ -20,7 +22,8 @@ import { ScanBook } from '../pages/scanBook/scanBook';
     MyApp,
     Accueil,
     Login,
-    ScanBook
+    ScanBook,
+    Library
   ],
   providers: [{provide: ErrorHandler, useClass: IonicErrorHandler}]
 })
