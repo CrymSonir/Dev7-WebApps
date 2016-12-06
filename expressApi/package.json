@@ -17,6 +17,7 @@
     "express-unless": "^0.3.0",
     "mongoose": "^4.7.1",
     "morgan": "~1.7.0",
+    "passport-json": "^1.2.0",
     "passport-local": "^1.0.0",
     "serve-favicon": "~2.3.0"
   }
