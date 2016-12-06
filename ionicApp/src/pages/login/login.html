@@ -8,5 +8,16 @@
 </ion-header>
 
 <ion-content>
-    
+  <form>
+    <ion-item>
+      <ion-label>Username</ion-label>
+      <ion-input type="text" [(ngModel)]="login.username" name="username"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label>Password</ion-label>
+      <ion-input type="password" [(ngModel)]="login.password" name="password"></ion-input>
+    </ion-item>
+    <button ion-button (click)="loginForm()" block>Sign In</button>
+  </form>
+
 </ion-content>
