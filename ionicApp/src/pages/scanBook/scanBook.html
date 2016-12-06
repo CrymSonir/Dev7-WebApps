@@ -8,5 +8,8 @@
 </ion-header>
 
 <ion-content>
-    
+	<div class="container">
+    	<button primary (click)="scan()">Ajouter un livre</button>
+    	<div [innerHTML]="bookISBN" ></div>
+	</div>
 </ion-content>

@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-
-import { NavController } from 'ionic-angular';
+import { BarcodeScanner } from 'ionic-native';
+import { Platform, NavController } from 'ionic-angular';
 
 @Component({
   selector: 'page-scanBook',
@@ -8,10 +8,25 @@ import { NavController } from 'ionic-angular';
 })
 export class ScanBook {
 
-  constructor(public navCtrl: NavController) {}
+	bookISBN: any;
 
-  ionViewDidLoad() {
-    console.log('Hello ScanBookPage Page');
-  }
+	constructor(public navCtrl: NavController, public platform: Platform ) {
+
+	}
+
+	scan() {
+		this.platform.ready().then(() => {
+            BarcodeScanner.scan().then((barcodeData) => {
+            	this.bookISBN = barcodeData.text;
+			}, (err) => {
+			    // An error occurred
+			});
+        });
+	}
+	manualCode() {
+		this.platform.ready().then(() => {
+            
+        });
+	}
 
 }
