@@ -1,9 +1,20 @@
-import {tokenNotExpired} from 'angular2-jwt';
-
 export class AuthService {
-  constructor() {}
+
+  user: any;
+  isLogged: boolean;
+
+  constructor() {
+    this.isLogged = false;
+  }
+
+  public setUser(user) {
+    this.user = user;
+    if(user.token) {
+      this.isLogged = true;
+    }
+  }
 
   public authenticated() {
-    return tokenNotExpired();
+    return this.isLogged;
   }
 }
