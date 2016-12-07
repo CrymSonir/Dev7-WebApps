@@ -33,10 +33,9 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 passport.use(new Strategy(
   function(username, password, cb) {
-    Users.find({username: username}, function(err, user) {
+    Users.findOne({username: username}, function(err, user) {
       if (err) { return cb(err); }
-      user = user[0];
-      if (!user ) { return cb(null, false); }
+      if (!user) { return cb(null, false); }
       if (user.password != password) { return cb(null, false); }
       return cb(null, user);
     });
@@ -47,7 +46,7 @@ passport.use(new Strategy(
   });
 
   passport.deserializeUser(function(id, cb) {
-    Users.find({_id: id}, function (err, user) {
+    Users.findOne({_id: id}, function (err, user) {
       if (err) { return cb(err); }
       cb(null, user);
     });
@@ -60,16 +59,18 @@ app.use(passport.session());
 app.post('/login',
   passport.authenticate('json'),
   function(req, res) {
-    var token = jwt.sign({
-      exp: Math.floor(Date.now() / 1000) + (60 * 60),
-      data: req.body
-    }, req.body.password);
-    var result = {
-      msg: 'LOGGED',
-      token: token
-    };
-    console.log('REQUEST : ', result);
-    res.json(result);
+    Users.findOne({username: req.body.username}, function(err, user) {
+      delete user.password;
+      var token = jwt.sign({
+        exp: Math.floor(Date.now() / 1000) + (60 * 60),
+        data: user
+      }, user.password);
+      var result = {
+        msg: 'LOGGED',
+        token: token
+      };
+      res.json(result);
+    });
   });
 
 app.get('/logout',

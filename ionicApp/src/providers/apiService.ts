@@ -28,6 +28,7 @@ export class ApiService {
     return this.http.get(path)
       .toPromise()
       .then(function(res) {
+      console.log('RESPONSE : ', res);
         cb(null, res.json());
       }, err => cb(err));
   }

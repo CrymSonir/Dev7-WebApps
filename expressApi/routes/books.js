@@ -12,7 +12,7 @@ router.get('/', function(req, res, next) {
 });
 
 router.get('/:id', function(req, res, next) {
-  Books.find(function(err, result) {
+  Books.findOne({"isbn13": req.param.id}, function(err, result) {
     if(err) {
       return next(err);
     }
@@ -30,9 +30,9 @@ router.post('/', function(req, res, next) {
 });
 
 router.put('/', function(req, res, next) {
-  var id = req.body._id;
+  var isbn = req.body.isbn13;
   delete req.body._id;
-  Books.update({"_id": id}, req.body, function (err, result) {
+  Books.update({"isbn13": isbn}, req.body, function (err, result) {
     if(err) {
       return next(err);
     }
@@ -41,7 +41,7 @@ router.put('/', function(req, res, next) {
 });
 
 router.delete('/', function(req, res, next) {
-  Books.remove({"_id": req.body._id}, function (err, result) {
+  Books.remove({"isbn13": req.body.isbn13}, function (err, result) {
     if(err) {
       return next(err);
     }
@@ -50,6 +50,3 @@ router.delete('/', function(req, res, next) {
 });
 
 module.exports = router;
-
-
-// {}
