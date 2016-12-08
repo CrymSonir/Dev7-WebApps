@@ -55,7 +55,6 @@ app.post('/login', function(req, res) {
 });
 
 apiRoutes.use(function(req, res, next) {
-  console.log('PUTE : ', req.headers);
   var token = req.body.token || req.query.token || req.headers['x-access-token'];
   if (token) {
     jwt.verify(token, app.get('SUPERPASS'), function(err, decoded) {
