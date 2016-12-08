@@ -34,6 +34,8 @@ export class ApiService {
 
   post(url, data, cb) {
     let path = baseUrl + url;
+    console.log('URL : ', path);
+    console.log('DATA : ', data);
     return this.http.post(path, data)
       .toPromise()
       .then(function(res) {
