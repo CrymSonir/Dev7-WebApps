@@ -1,5 +1,5 @@
-import { NavController } from 'ionic-angular';
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
+import { Nav } from 'ionic-angular';
 import { ApiService } from '../../providers/apiService';
 import { AuthService } from '../../providers/authService';
 import { Storage } from '@ionic/storage';
@@ -20,19 +20,19 @@ export class Login {
     password: null
   }
 
-  storage:any;
+  storage    :any;
   authService:any;
+  nav        :any;
 
-  constructor(public navCtrl: NavController, public api: ApiService, storage: Storage, authService: AuthService) {
-    this.navCtrl = navCtrl;
+  constructor( public api: ApiService, nav:Nav, storage: Storage, authService: AuthService) {
     this.api = api;
     this.storage = storage;
     this.authService = authService;
+    this.nav = nav;
   }
 
   loginForm() {
     let self = this;
-    console.log('LOGGED',this.login);
     this.api.post('login', {username: this.login.username, password: this.login.password},
     function(err, result) {
       if(err) {
@@ -43,7 +43,8 @@ export class Login {
       console.log('RESPONSE : ', response);
       if(response.success) {
         self.authSuccess(response.token);
-        // self.navCtrl.setRoot(Library);
+        alert('vous avez été log');
+        location.reload();
       };
     });
   }

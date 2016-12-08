@@ -33,7 +33,7 @@ export class MyApp {
       { title: 'Accueil', component: Accueil },
       { title: 'Library', component: Library },
       { title: 'Scan livre', component: ScanBook },
-      { title: 'Login', component: Login }
+      // { title: 'Login', component: Login }
 
     ];
     this.login = { title: 'Login', component: Login };
@@ -54,7 +54,6 @@ export class MyApp {
 
   openPage(page) {
     // Reset the content nav to have just this page
-    // we wouldn't want the back button to show in this scenario
     let self = this;
     this.authService.authenticated(function(val) {
       self.isAuth = val;
@@ -63,10 +62,10 @@ export class MyApp {
   }
 
   logout() {
-    console.log('LOGOUT');
     this.storage.remove('id_token');
     this.storage.remove('isLogged');
     this.isAuth = false;
+    location.reload();
   }
 
 }
