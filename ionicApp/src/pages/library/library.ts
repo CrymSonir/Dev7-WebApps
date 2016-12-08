@@ -22,7 +22,6 @@ export class Library {
   }
 
   ionViewDidLoad() {
-    console.log('Hello LibraryPage Page');
     this.api.get('users/5848198c675e8a3361fbbed7', function(err, result) {
       if(err) {
       console.log('ERR : ', err);
@@ -32,11 +31,6 @@ export class Library {
   }
 
   ionViewCanEnter(): boolean {
-    //return this.authService.authenticated();
-    this.storage.get('id_token').then((val) => {
-       console.log('id_token', val);
-     });
-
     return true;
   }
 

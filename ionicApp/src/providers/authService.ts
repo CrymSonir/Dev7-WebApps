@@ -21,9 +21,7 @@ export class AuthService {
   }
 
   public authenticated(cb) : any {
-    console.log('STORAGE : ',this.storage);
     this.storage.get('isLogged').then((data) => {
-      console.log('POUET : ', data);
       cb(data);
     });
   }
