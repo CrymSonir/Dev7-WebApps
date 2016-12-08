@@ -1,0 +1,22 @@
+# Procédure d’installation
+
+
+Git clone https://github.com/CrymSonir/Dev7-WebApps.git
+ou
+https://github.com/CrymSonir/Dev7-WebApps/archive/v1.zip
+
+
+# aller dans le dossier express
+npm install
+Lancer express : PORT=4000 npm start
+
+
+# Aller dans le dossier ionic 
+npm install
+Lancer ionic : ionic serve
+
+
+# Mongo
+Créer une db restdatas
+Créer une table users (voir model dans express pour le schéma)
+Lancer mongo service mongod start

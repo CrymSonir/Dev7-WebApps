@@ -1,0 +1,13 @@
+# Element restant à faire et évolution possible
+
+
+Dans l’état actuel il nous aurait manqué bien une semaine pour terminer le travail :
+l’appli n’est pas relié à amazone ce qui pourrait être un bon point car l’api tierce actuel ne contient pas les livres français
+l’appli ne sauvegarde pas les livres (à l’heure actuel) que l’on scan mais le scanner est fonctionnel .
+Pour le moment les routes ne sont pas en accès privé
+
+
+En amélioration :
+Le système de notif sur tell qd un nouveau volume de book sort serait un grand plus
+séparer les books grâce à un système de collection/étagère 
+pourquoi pas étendre l’idée à des séries et des films
