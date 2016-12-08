@@ -1,8 +1,8 @@
-import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
+import { Component } from '@angular/core';
 import { ApiService } from '../../providers/apiService';
-import {AuthService} from '../../providers/authService';
-import {JwtHelper} from 'angular2-jwt';
+import { AuthService } from '../../providers/authService';
+import { Storage } from '@ionic/storage';
 import 'rxjs/add/operator/toPromise';
 import 'rxjs/add/operator/map';
 
@@ -11,7 +11,7 @@ import { Library } from '../library/library';
 @Component({
   selector: 'page-login',
   templateUrl: 'login.html',
-  providers: [ApiService, JwtHelper, AuthService]
+  providers: [ApiService, Storage, AuthService]
 })
 export class Login {
 
@@ -20,22 +20,23 @@ export class Login {
     password: null
   }
 
-  user: any;
-  local: any;
+  storage:any;
+  authService:any;
 
-  constructor(public navCtrl: NavController, public api: ApiService, public jwtHelper: JwtHelper, public auth: AuthService) {
+  constructor(public navCtrl: NavController, public api: ApiService, storage: Storage, authService: AuthService) {
     this.navCtrl = navCtrl;
     this.api = api;
-    this.jwtHelper = new JwtHelper();
-    console.log('INIT : ', this.jwtHelper);
+    this.storage = storage;
+    this.authService = authService;
   }
 
   loginForm() {
     let self = this;
+    console.log('LOGGED',this.login);
     this.api.post('login', {username: this.login.username, password: this.login.password},
     function(err, result) {
       if(err) {
-        console.log('LOGIN ERROR : ', err);
+        console.log(err);
       }
       let response = result.json ? result.json() : result;
       if(response.msg && response.msg === 'LOGGED') {
@@ -46,12 +47,7 @@ export class Login {
   }
 
   authSuccess(token) {
-    var username = this.jwtHelper.decodeToken(token).username;
-    var user = {
-      username: username,
-      token: token
-    };
-    this.auth.setUser(user);
+    this.authService.setUser(token);
   }
 
 }
