@@ -1,12 +1,10 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component } from '@angular/core';
 import { Nav } from 'ionic-angular';
 import { ApiService } from '../../providers/apiService';
 import { AuthService } from '../../providers/authService';
 import { Storage } from '@ionic/storage';
 import 'rxjs/add/operator/toPromise';
 import 'rxjs/add/operator/map';
-
-import { Library } from '../library/library';
 
 @Component({
   selector: 'page-login',
@@ -38,12 +36,10 @@ export class Login {
       if(err) {
         console.log(err);
       }
-      console.log('LOGIN : ', result);
       let response = result.json ? result.json() : result;
-      console.log('RESPONSE : ', response);
       if(response.success) {
         self.authSuccess(response.token);
-        alert('vous avez été log');
+        alert('Login successful');
         location.reload();
       };
     });

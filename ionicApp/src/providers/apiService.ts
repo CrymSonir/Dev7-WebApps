@@ -11,14 +11,13 @@ var ISBNUrl = '/ISBN/api/v2/json/QUT95LSX/';
 export class ApiService {
 
   constructor(public http: Http, public storage: Storage) {
-    var self = this;
+
     this.http = http;
     this.storage = storage;
   }
 
   getISBN(url, cb) {
     let path = ISBNUrl + url;
-    console.log('ISBN : ', path);
     return this.http.get(path)
       .toPromise()
       .then(function(res) {
@@ -35,7 +34,6 @@ export class ApiService {
       self.http.get(path, {headers: headers})
         .toPromise()
         .then(function(res) {
-        console.log('RESPONSE : ', res);
           cb(null, res.json());
         }, err => cb(err));
     });
