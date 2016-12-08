@@ -15,16 +15,13 @@ export class AuthService {
 
   public setUser(token) {
     if(token) {
-      console.log('SET STORAGE : ',this.storage);
       this.storage.set('isLogged', true);
       this.storage.set('id_token', token);
     }
   }
 
   public authenticated(cb) : any {
-    console.log('STORAGE : ',this.storage);
     this.storage.get('isLogged').then((data) => {
-      console.log('POUET : ', data);
       cb(data);
     });
   }

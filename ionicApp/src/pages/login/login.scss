@@ -1,3 +1,12 @@
-page-login {
-
+.loginForm{
+	-moz-box-shadow: 10px 10px 5px 0px #656565;
+	-webkit-box-shadow: 10px 10px 5px 0px #656565;
+	-o-box-shadow: 10px 10px 5px 0px #656565;
+	box-shadow: 10px 10px 5px 0px #656565;
+	filter:progid:DXImageTransform.Microsoft.Shadow(color=#656565, Direction=134, Strength=5);
+	padding: 30px 15px;
+	background-color: white;
+	max-width: 500px;
+	margin: 40px auto;
+	border-radius: 10px;
 }

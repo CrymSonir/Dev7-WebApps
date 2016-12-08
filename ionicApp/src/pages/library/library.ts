@@ -21,7 +21,6 @@ export class Library {
   }
 
   ionViewDidLoad() {
-    console.log('Hello LibraryPage Page');
     // this.api.getISBN('book/9780849303159', function(err, result) {
     //   if(err) {
     //     console.log('PADBOL : ', err);
@@ -31,11 +30,6 @@ export class Library {
   }
 
   ionViewCanEnter(): boolean {
-    //return this.authService.authenticated();
-    this.storage.get('id_token').then((val) => {
-       console.log('id_token', val);
-     })
-
     return true;
   }
 
