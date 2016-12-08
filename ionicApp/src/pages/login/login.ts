@@ -1,37 +1,56 @@
-import { Component } from '@angular/core';
-import { Http, Response } from '@angular/http';
-import { NavController } from 'ionic-angular';
-import { Observable } from 'rxjs/Rx';
+import { Component, ViewChild } from '@angular/core';
+import { Nav } from 'ionic-angular';
+import { ApiService } from '../../providers/apiService';
+import { AuthService } from '../../providers/authService';
+import { Storage } from '@ionic/storage';
 import 'rxjs/add/operator/toPromise';
+import 'rxjs/add/operator/map';
 
 import { Library } from '../library/library';
 
 @Component({
   selector: 'page-login',
-  templateUrl: 'login.html'
+  templateUrl: 'login.html',
+  providers: [ApiService, Storage, AuthService]
 })
 export class Login {
 
-  constructor(public navCtrl: NavController, public http: Http) {
-    this.navCtrl = navCtrl;
-    this.http = http;
+  login = {
+    username: null,
+    password: null
   }
 
-  login = {}
+  storage    :any;
+  authService:any;
+  nav        :any;
+
+  constructor( public api: ApiService, nav:Nav, storage: Storage, authService: AuthService) {
+    this.api = api;
+    this.storage = storage;
+    this.authService = authService;
+    this.nav = nav;
+  }
 
   loginForm() {
-    console.log('LOGIN FORM');
-    var self = this;
-    return this.http.post('http://localhost:4000/login', {username: "bob", password: "mdp"})
-                    .toPromise()
-                    .then(function(res) {
-                      console.log('RESPONSE : ', res.json());
-                      if(res.json().msg && res.json().msg === 'LOGGED') {
-                        self.navCtrl.setRoot(Library);
-                      };
-                    }, err => console.log('ERROR QUERY : ', err));
+    let self = this;
+    this.api.post('login', {username: this.login.username, password: this.login.password},
+    function(err, result) {
+      if(err) {
+        console.log(err);
+      }
+      console.log('LOGIN : ', result);
+      let response = result.json ? result.json() : result;
+      console.log('RESPONSE : ', response);
+      if(response.success) {
+        self.authSuccess(response.token);
+        alert('vous avez été log');
+        location.reload();
+      };
+    });
+  }
 
-
+  authSuccess(token) {
+    this.authService.setUser(token);
   }
 
 }
