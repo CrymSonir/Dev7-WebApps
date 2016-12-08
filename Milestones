@@ -8,11 +8,6 @@
 5/ Dev de ionic
 
 
-Nous avons rencontrons principalement deux problèmes pendant ce TP , le premier est lié à la technologie , celle-ci étant “jeune” il y avait très peu de DOC. 
+Nous avons rencontrons principalement deux problèmes pendant ce TP
+Le premier est lié à la technologie , celle-ci étant “jeune” il y avait très peu de DOC. 
 Le deuxième problème rencontré est lié à l’importation de jsonwebtoken nous empêchant d'utiliser une partie de la librairie suite à des soucis avec la librairie “prime.json”... Ce problème n’a pas trouvé de solution pour le moment …
-
-
-
-
-
-
