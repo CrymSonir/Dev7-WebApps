@@ -21,6 +21,7 @@ export class Library {
   }
 
   ionViewDidLoad() {
+    console.log('Hello LibraryPage Page');
     // this.api.getISBN('book/9780849303159', function(err, result) {
     //   if(err) {
     //     console.log('PADBOL : ', err);
