@@ -15,7 +15,6 @@ export class AuthService {
 
   public setUser(token) {
     if(token) {
-      console.log('SET STORAGE : ',this.storage);
       this.storage.set('isLogged', true);
       this.storage.set('id_token', token);
     }

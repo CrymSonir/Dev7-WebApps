@@ -15,26 +15,27 @@ export class Library {
   api: any;
 
   constructor(public navCtrl: NavController, public authService: AuthService, storage: Storage,  api: ApiService) {
+    var self = this;
     this.authService = authService;
     this.storage = storage;
-    this.api = ApiService;
+    this.api = api;
   }
 
   ionViewDidLoad() {
     console.log('Hello LibraryPage Page');
-    // this.api.getISBN('book/9780849303159', function(err, result) {
-    //   if(err) {
-    //     console.log('PADBOL : ', err);
-    //   }
-    //   console.log('BOOK : ', result);
-    // });
+    this.api.get('users/5848198c675e8a3361fbbed7', function(err, result) {
+      if(err) {
+      console.log('ERR : ', err);
+      }
+      console.log('RESULT : ', result);
+    });
   }
 
   ionViewCanEnter(): boolean {
     //return this.authService.authenticated();
     this.storage.get('id_token').then((val) => {
        console.log('id_token', val);
-     })
+     });
 
     return true;
   }

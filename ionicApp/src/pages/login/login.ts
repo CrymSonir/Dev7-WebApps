@@ -38,10 +38,12 @@ export class Login {
       if(err) {
         console.log(err);
       }
+      console.log('LOGIN : ', result);
       let response = result.json ? result.json() : result;
-      if(response.msg && response.msg === 'LOGGED') {
+      console.log('RESPONSE : ', response);
+      if(response.success) {
         self.authSuccess(response.token);
-        self.navCtrl.setRoot(Library);
+        // self.navCtrl.setRoot(Library);
       };
     });
   }
